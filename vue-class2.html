@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习1</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- <meta name ="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    	 .red{
+            color: red;
+            font-size: 20px;
+        }
+        .blue{
+            background: blue;
+            font-size:30px;
+        }
+        .box {
+        	width: 300px;
+        	margin:30px auto;
+        }
+    </style>
+    <script src="vue1.0.js"></script>
+    <script>
+    	window.onload=function(){
+    		new Vue({
+    			el:".box",
+    			data:{
+    				red:"red",
+    				msg:"welcome vue1.0",
+    				b:"blue"
+    			},
+    			methods:{
+    				
+    			}
+
+    		});
+
+    	}
+
+    	
+    </script>
+
+</head>
+<body>
+	<div class="box">
+		{{msg}}<br>
+		<strong :class="[red]">vue1.0第一次使用</strong><br>
+		<strong :class="[red,b]">vue1.0第一次使用</strong>
+		
+	</div>
+</body>
+</html>
