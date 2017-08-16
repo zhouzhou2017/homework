@@ -15,7 +15,7 @@
         }
         #box {
         	font-size:50px;
-        	width: 400px;
+        	width: 600px;
         	margin:50px auto;
         }
     </style>
@@ -25,6 +25,22 @@
     		new Vue({
     			el:"#box",
     			data:{
+                    a:true,
+                    b:false,
+                    json:{
+                        red:true,
+                        blue:true
+                    },
+                    c:{
+                        color:'yellow'
+                    },
+                    d:{
+                        background:'green'
+                    },
+                    e:{
+                        color:'red',
+                        backgroundColor:'gray'
+                    }
 
     			},
     			methods:{
@@ -37,7 +53,13 @@
 </head>
 <body>
 	<div id="box">
-		<strong :class="{red:true,blue:true}">vue1.0在练习代码，vue2.0还会远吗</strong>
+        <strong :class="{red:true,blue:true}">vue1.0在练习代码，vue2.0还会远吗</strong><br>
+        <strong :class="{red:a,blue:b}">vue1.0在练习代码，vue2.0还会远吗</strong><hr>
+		<strong :class="json">vue1.0在练习代码，vue2.0还会远吗</strong><hr>
+        <strong :style="{color:'orange'}">文字...</strong><hr>
+        <strong :style="[c,d]">文字...</strong><hr>
+        <strong :style="e">来来去去都是这么样...</strong><hr>
+
 	</div>
 </body>
 </html>
