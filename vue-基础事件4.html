@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue基础事件</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- <meta name ="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    	 
+    </style>
+    <script src="vue1.0.js"></script>
+    <script>
+    	window.onload=function() {
+            new Vue({
+                el:"#box",
+                data:{
+                    arr:['apple','banana','orange','pear'],
+                    json:{
+                        a:'apple',b:'banana',c:'orange',d:'pear'
+                    }
+
+                },
+                methods:{
+                    add() {
+                        this.arr.push('tomato');
+                    },
+                    show:function(b,ev) {
+                        alert(ev.clientX);
+                        alert(b)
+                    },
+                    showKeyCode:function(ev) {
+                        alert(ev.keyCode)
+                    },
+                    tixing(ev){
+                        if(ev.keyCode==13){
+                            alert("亲，你按了回车键")
+                        };
+                    },
+                    tixing2(){
+                        alert("亲，你按了回车键")
+                    }
+
+                },
+                showy:function(ev){
+                    // alert('右键阻止默认行为');
+                    alert("1")
+                    // ev.preventDefault();
+                    // ev.preventDefault();
+                }
+            });
+        }
+    	
+    </script>
+
+</head>
+<body>
+	<div id="box">
+        <input type="button" value="按钮" v-on:click="add"> <br> 
+        <input type="button" value="按钮" @contextmenu.prevent="showy($event)"> 
+
+        <br> 
+        <input type="button" value="按钮" @click="show(12,$event)">  <br>
+        <input type="text" @keydown="showKeyCode($event)"><br>
+        <input type="text" @keyup="showKeyCode($event)"><br>
+        <input type="text" @keyup="tixing($event)"><br>
+        <input type="text" @keyup.13="tixing2()"><br>
+        <input type="text" @keyup.enter="tixing2()"><br>
+        <br>
+        <ul>
+             <li v-for="val in arr">{{val}} {{$index}}</li>
+        </ul> <hr>
+        <ul>
+             <li v-for="value in json">{{value}} {{$key}}</li>
+        </ul> 
+    </div>
+</body>
+</html>
