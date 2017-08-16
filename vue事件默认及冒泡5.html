@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>moban</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- <meta name ="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    	 
+    </style>
+    <script src="vue1.0.js"></script>
+    <script>
+    	window.onload=function() {
+            new Vue({
+                el:"#box",
+                data:{
+
+                },
+                methods:{
+                    show:function(ev){
+                        alert("1");
+                        // ev.cancelBuble();
+
+                    },
+                    show2:function(){
+                        alert("2");
+
+                    },
+                    show3:function(ev){
+                        alert("3");
+                        ev.preventDefault();
+                        ev.cancelBuble();
+                    },
+                    show4:function(){
+                        alert("4");
+                    }
+                }
+            })
+        }
+    	
+    </script>
+
+</head>
+<body>
+	<div id="box">
+        <div @click="show2()">
+            <input type="button" value="按钮" @click="show($event)">
+            <br>
+            <input type="button" value="按钮2" @click.stop="show()">
+            <br>
+            <input type="button" value="按钮3" @contextmenu="show3($event)">
+            <br>
+            <input type="button" value="按钮4" @contextmenu.prevent="show4()">
+
+        </div>   
+    </div>
+</body>
+</html>
