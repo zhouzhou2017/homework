@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue1.0生命周期</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- <meta name ="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    	 
+    </style>
+    <script src="vue1.0.js"></script>
+    <script>
+    	window.onload=function(){
+            var vm=new Vue({
+                el:'#box',
+                aa:11,//自定义属性
+                data:{
+                    a:"vue1.0的生命周期"
+                },
+                methods:{
+
+                },
+                created:function(){
+                    alert("实例创建完成")
+                },
+                beforeCompile:function(){
+                    alert('编译之前')
+                },
+                compiled:function(){
+                    alert('编译之后')
+                },
+                ready:function(){
+                    alert('插入到文档中')
+                },
+                beforeDestroy:function(){
+                    alert('销毁之前')
+                },
+                destroyed:function(){
+                    alert('销毁之后')
+                }
+
+            });
+            document.onclick=function(){
+                vm.$destroy();
+            };
+            console.log(vm.$data.a);
+            console.log(vm.a);
+            console.log(vm.$options.aa);
+            var aa=vm.$options.aa;
+            var div=document.getElementById('box');
+            div.innerHTML+=aa;
+
+        }
+    	
+    </script>
+
+</head>
+<body>
+	<div id="box">
+     {{a}}   <br>
+
+    </div>
+</body>
+</html>
