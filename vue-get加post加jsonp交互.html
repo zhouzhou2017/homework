@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue-get加post加jsonp交互</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- <meta name ="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    	 
+    </style>
+    <script src="vue1.0.js"></script>
+    <script src="vue-resource.js"></script>
+    <!-- <script src="vue-resource.js"></script> -->
+    <script>
+    	window.onload=function() {
+            new Vue({
+            // el:"#box",
+            el:'body',
+            data:{
+
+            },
+            methods:{
+                get:function() {
+                    this.$http.get('a.txt').then(function(res){
+                        alert(res.data);
+                        alert(res.status);
+                    },function(res){
+                        alert(res.data);
+                        alert(res.status);
+                    });
+                },
+                get1:function(){
+                    this.$http.get('get.php',{
+                        a:1,
+                        b:2
+                    }).then(function(res){
+                        alert(res.data);
+                        alert(res.status)
+                    },function(res){
+                        alert(res.data);
+                        alert(res.status)
+
+                    })
+                }，
+                get2:function(){
+                    this.$http.post('post.php',{
+                        a:2,
+                        b:1
+                    },{
+                        emulateJSON:true
+                    }).then(function(res){
+                        alert(res.data)
+                    },function(res){
+                        alert(res.status)
+                    })
+                },
+                get3:function(){
+                    this.$http.jsonp('https://sug.so.360.cn/suggest',{
+                            word:'a'
+                        }).then(function(res){
+                            alert(res.data.s);
+                        },function(res){
+                            alert(res.status);
+                        });
+                    }
+                },
+                get4:function(){
+                        this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+                            wd:'a'
+                        },{
+                            jsonp:'cb'
+                        }).then(function(res){
+                            alert(res.data.s);
+                        },function(res){
+                            alert(res.status);
+                        });
+                    }
+            }
+        })
+
+        }
+    	
+    </script>
+
+</head>
+<body>
+	<!-- <div id="box"> -->
+        <input type="button" value="按钮" @click="get()"> <br>  
+        <input type="button" value="按钮" @click="get1()"> <br>  
+        <input type="button" value="按钮" @click="get2()"> <br>  
+        <input type="button" value="按钮" @click="get3()"> <br>  
+        <input type="button" value="按钮" @click="get4()"> <br>  
+    <!-- </div> -->
+    <!-- </div> -->
+</body>
+</html>
