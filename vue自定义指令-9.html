@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义指令测试</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- <meta name ="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    	 zns-red{
+            width:100px;
+            background: gray;
+            height:100px;
+            display: block;
+            position:absolute;
+            left:30px;
+            top:300px;
+        }
+    </style>
+    <script src="vue1.0.js"></script>
+    <script>
+        Vue.directive('red',function(){
+            this.el.style.background='red';
+        })
+        //自定义指令拖拽
+        Vue.directive('drag',function(){
+            var oDiv=this.el;
+            oDiv.onmousedown=function(ev){
+                var disX=ev.clientX-oDiv.offsetLeft;
+                var disY=ev.clientY-oDiv.offsetTop;
+                document.onmousemove=function(ev){
+                    var l=ev.clientX-disX;
+                    var t=ev.clientY-disY;
+                    oDiv.style.left=l+'px';
+                    oDiv.style.top=t+'px';
+                }
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                }
+            }
+        })
+        //自定义元素指令
+        Vue.elementDirective('zns-red',{bind:function(){
+                this.el.style.background='red';
+            }
+        })
+        window.onload=function(){
+            new Vue({
+                el:'#box',
+                data:{
+                    msg:'welcome vue1.0'
+                }
+
+            });
+            new Vue({
+                data:{
+                    a:'blue'
+                }
+            }).$mount('#box2')
+        }
+    	
+    </script>
+
+</head>
+<body>
+	<div id="box" v-drag :style="{width:'100px', height:'100px', background:'blue', position:'absolute', right:'100px', top:0}">
+        <span v-red>vue自定义指令测试</span>   
+    </div>
+    <div id="box2">
+        <zns-red></zns-red> 
+            
+    </div>
+</body>
+</html>
