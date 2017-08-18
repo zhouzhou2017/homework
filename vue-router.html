@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vueRouter</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- <meta name ="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    	 
+    </style>
+    <script src="vue1.0.js"></script>
+    <script src="vue-router.min.js"></script>
+   
+
+</head>
+<body>
+	<div id="box">
+        <ul>
+            <li><a v-link="{path:'/home'}">主页</a></li>
+            <li><a v-link="{path:'/news'}">新闻</a></li>
+        </ul>
+        <div>
+            <router-view></router-view>    
+        </div>
+
+    </div>
+    <template id="home">
+        <h3>我是主页</h3>
+        <li><a v-link="{path:'/home/login/zns'}">登陆</a></li>
+        <li><a v-link="{path:'/home/reg'}">注册</a></li>
+        <router-view></router-view>
+    </template>
+    <template id="news">
+        <h3>我是新闻页</h3>
+        <li><a v-link="{path:'/news/detail/001'}">新闻001</a></li>
+        <li><a v-link="{path:'/news/detail/002'}">新闻002</a></li>
+        <router-view></router-view>
+    </template>
+
+    <template id="detail">
+        {{$route.params | json}} <!-- 当前参数 -->
+        <br>
+        {{$route.path}} <!-- 当前路径 -->
+        <br>
+        {{$route.query | json}}<!-- 数据 -->
+        
+    </template>
+
+    <script>
+        //1.准备一个根组件
+        var App=Vue.extend();
+
+        // 2.准备Home,News组件
+        var Home=Vue.extend({
+            template:"#home"
+        });
+         var News=Vue.extend({
+            template:"#news"
+        });
+         var Detail=Vue.extend({
+            template:'#detail'
+        });
+        //3.准备路由
+        var router = new VueRouter();
+        //4.关联
+        router.map({
+            'home':{
+                component:Home,
+                subRoutes:{
+                    'login/:name':{
+                        component:{
+                            template:"<h3>我是登陆信息 {{$route.params | json}}</h3>"
+                        }
+                    },
+                    'reg':{
+                        component:{
+                             template:"<h3>我是注册信息</h3>"
+                        }
+                    }
+                
+                }
+            },
+            
+            'news':{
+                component:News,
+                    subRoutes:{
+                        'detail/:id':{
+                            component:Detail
+
+                        }
+                    }
+                        
+            }
+                
+        });
+        // 5.开启路由
+        router.start(App,'#box');
+        // 6.跳转
+        router.redirect({
+            '/':'/home'
+        });
+    </script>
+</body>
+</html>
