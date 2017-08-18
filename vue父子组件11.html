@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>moban</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- <meta name ="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    	 
+    </style>
+    <script src="vue1.0.js"></script>
+    <script>
+    	window.onload=function(){
+            new Vue({
+                data:{
+                    a:'abc'
+                },
+                components:{
+                    'aaa':{
+                        data(){
+                            return{
+                                msg:'我是父aaa组件数据',
+                                msg2:121212
+                            }
+                        },
+                        template:'#aaa',
+                        methods:{
+                            get(ms){
+                                // alert(msg);
+                                this.msg2=ms;
+                            }
+                        },
+                        components:{
+                            'bbb':{
+                                data:function(){
+                                    return{
+                                        msg3:'我是子bbb组件数据'
+                                    }
+                                },
+                                props:['m','mm'],
+
+                                template:'#bbb',
+                                methods:{
+                                    send(){
+                                        this.$emit('child-msg',this.msg3);
+                                    }
+                                }
+                            }
+                        
+                        }
+                    }
+                }
+            }).$mount('#box');
+        }
+    	
+    </script>
+
+</head>
+<body>
+	<div id="box">
+        {{a}}
+        <aaa></aaa>   
+        
+    </div>
+
+    <template id="aaa">
+
+        <h3>我是aaa组件数据--> {{msg}} </h3>
+
+        <bbb :m='msg' :mm='msg2' @child-msg="get"></bbb>
+
+        <!-- <bbb ></bbb> -->
+    </template>
+
+    <template id="bbb">
+        <h3>我是子组件bbb数据-->{{msg3}}--->{{m}}---{{mm}}</h3>
+
+        <input type="button" value="send" @click="send">
+    </template>
+</body>
+</html>
